@@ -49,9 +49,13 @@ app.get('/protected', passport.authenticate('jwt', { session: false }), (req, re
 
 app.post('/auth', (req, res) => {
     const token = req.body.token.split(' ')[1]
+    console.log(req.body.token)
+    console.log(token)
+
     jwt.verify(token, 'secreto', (err, decoded) => {
         if (err) {
             console.log('Auth error')
+            console.log(error)
             res.status(401).send({ success: false, msg: 'User not authenticated' })
         }
         else res.status(200).send({ success: true, msg: 'User autheticated', user_id: decoded.id })
