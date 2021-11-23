@@ -10,6 +10,7 @@ const passport = require('passport')
 require('./config/passport')
 const jwt = require('jsonwebtoken')
 
+
 app.use(cors({ origin: ORIGIN }))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
