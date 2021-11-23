@@ -1,6 +1,6 @@
-
+require('dotenv').config()
 const PORT = process.env.PORT || 5000
-const ORIGIN = process.env.CLIENT_URL || 'http://localhost:3000'
+const ORIGIN = process.env.CLIENT_URL
 
 const users = require('./resources/users')
 const express = require('express')
@@ -9,7 +9,6 @@ const app = express()
 const passport = require('passport')
 require('./config/passport')
 const jwt = require('jsonwebtoken')
-
 
 app.use(cors({ origin: ORIGIN }))
 app.use(express.urlencoded({ extended: true }))
@@ -49,8 +48,6 @@ app.get('/protected', passport.authenticate('jwt', { session: false }), (req, re
 
 app.post('/auth', (req, res) => {
     const token = req.body.token.split(' ')[1]
-    console.log(req.body.token)
-    console.log(token)
 
     jwt.verify(token, 'secreto', (err, decoded) => {
         if (err) {
